@@ -1,0 +1,23 @@
+{
+  "name": "localreps",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "./",
+  "devDependencies": {
+    "electron-prebuilt-compile": "^1.4.15",
+    "foreman": "^2.0.0",
+    "react-scripts": "0.8.5"
+  },
+  "dependencies": {
+    "menubar": "^5.2.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron-dev": "ELECTRON_START_URL=http://localhost:3000 electron ."
+  }
+}
