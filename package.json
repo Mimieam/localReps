@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "./",
   "devDependencies": {
+    "electron": "^1.4.15",
     "electron-prebuilt-compile": "^1.4.15",
     "foreman": "^2.0.0",
     "react-scripts": "0.8.5"
@@ -18,6 +19,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "electron-dev": "ELECTRON_START_URL=http://localhost:3000 electron ."
+    "electron-dev": "ELECTRON_START_URL=http://localhost:3000 node_modules/.bin/electron ."
   }
 }

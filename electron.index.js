@@ -1,5 +1,6 @@
 import menubar from 'menubar'
 import url from 'url'
+import path from 'path'
 // var menubar = require('menubar')
 
 let mb = menubar({
@@ -9,14 +10,14 @@ let mb = menubar({
 })
 
 const startUrl = process.env.ELECTRON_START_URL || url.format({
-    pathname: path.join(__dirname, '/../build/index.html'),
+    pathname: path.join(__dirname, '/build/index.html'),
+    // pathname: path.join(__dirname, '/../build/index.html'),
     protocol: 'file:',
     slashes: true
 });
 
 mb.on('ready', () => {
   console.log('app is ready', mb)
-  
   mb.window.loadURL(startUrl)
   // your app code here
 })
