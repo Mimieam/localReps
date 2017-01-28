@@ -14,6 +14,10 @@ class App extends Component {
           To get started, edit <code>
             src/App.js
             src/Js.x
+
+
+node_modules/.bin/electron-packager-compile . localReps --platform=darwin --arch=x64  --out=release-builds --overwrite
+
           </code> and save to reload.
           <input/>
           <input/>
