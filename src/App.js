@@ -16,6 +16,8 @@ class App extends Component {
             src/Js.x
           </code> and save to reload.
           <input/>
+          <input/>
+          <input/>
         </div>
       </div>
     );
