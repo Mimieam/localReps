@@ -1,8 +1,24 @@
 import React, { Component } from 'react';
+import {Motion, spring} from 'react-motion';
 import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: false,
+            count: 1
+        };
+    }
+  handleMouseDown() {
+    this.setState({open: !this.state.open});
+  }
+  handleTouchStart(e) {
+    e.preventDefault();
+    this.handleMouseDown();
+  }
+
   render() {
     return (
       <div className="App App-background">
@@ -11,17 +27,20 @@ class App extends Component {
           <h2>Welcome to LocalReps</h2>
         </div>
         <div className="App-intro">
-          To get started, edit <code>
-            src/App.js
-            src/Js.x
-
-
-node_modules/.bin/electron-packager-compile . localReps --platform=darwin --arch=x64  --out=release-builds --overwrite
-
-          </code> and save to reload.
-          <input/>
-          <input/>
-          <input/>
+        <Motion style={{x: spring(this.state.open ? 200 : 0)}}>
+          {({x}) =>
+            // children is a callback which should accept the current value of
+            // `style`
+            <div className="demo0"
+                 onMouseDown={(e) => this.handleMouseDown(e)}
+                 onTouchStart={this.handleTouchStart.bind(this)}>
+              <div className="demo0-block" style={{
+                WebkitTransform: `translate3d(${x}px, 0, 0)`,
+                transform: `translate3d(${x}px, 0, 0)`,
+              }} />
+            </div>
+          }
+        </Motion>
         </div>
       </div>
     );

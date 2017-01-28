@@ -24,5 +24,6 @@ const startUrl = process.env.ELECTRON_START_URL || url.format({
 mb.on('ready', () => {
   console.log('app is ready', mb)
   mb.window.loadURL(startUrl)
+  mb.window.toggleDevTools()
   // your app code here
 })
