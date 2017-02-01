@@ -3,6 +3,8 @@ import {Motion, spring} from 'react-motion';
 import logo from './logo.svg';
 import './App.css';
 
+import {bfs} from './finder.js';
+
 class App extends Component {
     constructor(props) {
         super(props);
