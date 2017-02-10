@@ -8,7 +8,7 @@ const EXCLUDES = [
   "npm",
   ".meteor",
   ".Trash",
-  ".cache",
+  // ".cache",
 ]
 
 const findDirectories = (p) => {
@@ -35,17 +35,13 @@ const _bfs = (searchPath, arrayOfPromises) => {
       .then((directories) => {
           if (directories.includes(".git")) {
             res.push(searchPath)
-            console.log("............", searchPath)
+            // console.log("............", searchPath)
             return (res)
           }
           else {
             let subfolders = createNewSearchPaths(searchPath, directories)
             for (let _path of subfolders){
-                // console.log(_path , arrayOfPromises)
-
-               // return (Promise.resolve().then( () => _bfs(_path)))
-               let arr = _bfs(_path, [])
-               arrayOfPromises.push(arr)
+               arrayOfPromises.push( _bfs(_path, []))
             }
             return Promise.all(arrayOfPromises)
           }
@@ -57,19 +53,16 @@ const _bfs = (searchPath, arrayOfPromises) => {
     // search the provided path for a .git folder
   let proms = []
   const p = await _bfs(searchPath, proms).then(async (data)=> {
-   // console.log(data)
     await Promise.all(proms).then((data)=>{
       console.log(res)
-    // eval('let arr = ['+data.toString()+']');
-    // console.log(arr);
-      // console.log(data[2])
-    }).catch((e)=>{console.log(e)})
-  })
+      return res
+    }).catch((e)=>{console.log(e.message)})
+  }).catch((e)=>{console.log(e.message)})
 
-  // await Promise.all(fp).then((data)=> console.log(fp))
    console.log("[------------------------------------------\
 ---------------------------------------------\
 ----------------------------->>>>" )
+   return res
 }
 
 // patiently awaiting Node support for es6 modules...
@@ -77,7 +70,7 @@ module.exports = {
     bfs: bfs,
 }
 
-bfs('/Users/Miezan/Desktop')
+bfs('/Users/Miezan/')
   // .then(data=>console.log(data))
   // .catch((e)=>{console.log(e)})
 

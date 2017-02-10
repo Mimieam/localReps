@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import {Motion, spring} from 'react-motion';
+import { Button, BackTop } from 'antd';
+// import 'antd/dist/antd.css';
+import 'antd/lib/button/style/css';
+
 import logo from './logo.svg';
 import './App.css';
 
@@ -10,11 +14,15 @@ class App extends Component {
         super(props);
         this.state = {
             open: false,
-            count: 1
+            count: 1,
+            repos:[]
         };
     }
   handleMouseDown() {
-    this.setState({open: !this.state.open});
+    this.setState({
+      open: !this.state.open,
+      repos: bfs('/Users/Miezan/')
+    });
   }
   handleTouchStart(e) {
     e.preventDefault();
@@ -40,10 +48,18 @@ class App extends Component {
                 WebkitTransform: `translate3d(${x}px, 0, 0)`,
                 transform: `translate3d(${x}px, 0, 0)`,
               }} />
+            <Button type="primary">Button</Button>
+            <Button type="primary" shape="circle" icon="setting" size="large" />
             </div>
           }
         </Motion>
         </div>
+
+<BackTop />
+    Scroll down to see the bottom-right
+    <strong style={{ color: 'rgba(64, 64, 64, 0.6)' }}> gray </strong>
+    button.
+      {this.state.repos}
       </div>
     );
   }
