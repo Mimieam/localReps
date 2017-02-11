@@ -12,3 +12,8 @@ production:
 
 production - packaging:
 > node_modules/.bin/electron-packager . localReps --platform=darwin --arch=x64  --out=release-builds --overwrite  --ignore="\electron-wait-react.js"
+
+
+
+#ToDO - :
+ - find a better way to call native features from the client side ( using a global `fs` is not ideal IMO...)

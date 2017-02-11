@@ -15,6 +15,11 @@
     -->
     <title>React App</title>
   </head>
+  <script>
+      const remote = require('electron').remote;
+      window.fs = require('fs')
+    console.log(remote.app.getVersion());
+  </script>
   <body class="background">
     <div id="root"></div>
     <!--

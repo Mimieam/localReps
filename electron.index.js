@@ -2,6 +2,10 @@ const menubar = require('menubar')
 const url = require('url')
 const path = require('path')
 
+// var remote = require('electron').remote;
+// var electronFs = remote.require('fs');
+// var electronDialog = remote.dialog;
+
 /* To deal with the never ending flood of errors from electron-compile...Math avoid using too much es6 here (i.e. import...), the prebuilt-version didn't seems to support that */
 
 // import menubar from 'menubar'

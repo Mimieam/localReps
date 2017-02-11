@@ -18,10 +18,16 @@ class App extends Component {
             repos:[]
         };
     }
+  
+    componentDidMount() {
+          // const remote = require('electron').remote;
+    // console.log(remote.app.getVersion());
+    console.log("--------fs", window.fs)
+  }
   handleMouseDown() {
     this.setState({
       open: !this.state.open,
-      repos: bfs('/Users/Miezan/')
+      repos:  bfs('/Users/Miezan/')
     });
   }
   handleTouchStart(e) {

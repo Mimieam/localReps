@@ -4,6 +4,9 @@
   "private": true,
   "main": "./electron.index.js",
   "homepage": "./",
+  "node": {
+  "fs": "empty"
+},
   "devDependencies": {
     "electron": "^1.4.15",
     "electron-packager": "^8.5.1",
