@@ -1,13 +1,26 @@
 import React, { Component } from 'react';
 import {Motion, spring} from 'react-motion';
-import { Button, BackTop } from 'antd';
+import { Button, BackTop, Table } from 'antd';
 // import 'antd/dist/antd.css';
 import 'antd/lib/button/style/css';
+import 'antd/lib/table/style/css';
+import 'antd/lib/back-top/style/css';
 
 import logo from './logo.svg';
 import './App.css';
 
 import {bfs} from './finder.js';
+
+const columns = [{
+  title: 'Name',
+  dataIndex: 'name',
+  key: 'name',
+}, {
+  title: 'Path',
+  dataIndex: 'path',
+  key: 'path',
+}];
+
 
 class App extends Component {
     constructor(props) {
@@ -19,15 +32,13 @@ class App extends Component {
         };
     }
   
-    componentDidMount() {
-          // const remote = require('electron').remote;
-    // console.log(remote.app.getVersion());
-    console.log("--------fs", window.fs)
+  componentDidMount() {
+    // console.log("--------fs", window.fs)
   }
   handleMouseDown() {
     this.setState({
       open: !this.state.open,
-      repos:  bfs('/Users/Miezan/')
+      repos:  bfs('/Users/Miezan/Desktop/')
     });
   }
   handleTouchStart(e) {
@@ -41,6 +52,7 @@ class App extends Component {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to LocalReps</h2>
+          <Button className="App-logo" type="primary" shape="circle" icon="setting" size="large" />
         </div>
         <div className="App-intro">
         <Motion style={{x: spring(this.state.open ? 200 : 0)}}>
@@ -54,18 +66,19 @@ class App extends Component {
                 WebkitTransform: `translate3d(${x}px, 0, 0)`,
                 transform: `translate3d(${x}px, 0, 0)`,
               }} />
-            <Button type="primary">Button</Button>
-            <Button type="primary" shape="circle" icon="setting" size="large" />
             </div>
           }
         </Motion>
         </div>
 
-<BackTop />
-    Scroll down to see the bottom-right
-    <strong style={{ color: 'rgba(64, 64, 64, 0.6)' }}> gray </strong>
-    button.
-      {this.state.repos}
+        <Table dataSource={this.state.repos}
+          columns={columns}
+          size={"medium"}
+          showHeader={true}
+          pagination={{ pageSize: 100 }}
+        />  
+        <Button type="primary">Button</Button>
+        <BackTop className="App-backTop" visibilityHeight={100} />
       </div>
     );
   }

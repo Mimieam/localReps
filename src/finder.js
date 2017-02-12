@@ -48,7 +48,17 @@ const _bfs = (searchPath) => {
 
  const bfs = (searchPath) => {
     // search the provided path for a .git folder
-  return _bfs(searchPath)
+   // ok got lazy there... _path.split("/").filter((x)=> x!="").slice(-1)[0]  => just return the basename
+   let resultTable = _bfs(searchPath).map((_path) => {
+     
+     return {
+       "name": _path.split("/").filter((x) => x !== "").slice(-1)[0].toUpperCase(),
+       "path": _path,
+       "text": _path,
+     }
+   })
+  //  console.log(resultTable)
+   return resultTable
 }
 
 // patiently awaiting Node support for es6 modules...
