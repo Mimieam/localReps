@@ -66,7 +66,7 @@ module.exports = {
     bfs: bfs,
 }
 
-console.log(bfs('/Users/Miezan/Desktop/'))
+// console.log(bfs('/Users/Miezan/Desktop/'))
 
 
 

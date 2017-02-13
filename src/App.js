@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Motion, spring} from 'react-motion';
-import { Button, BackTop, Table } from 'antd';
+import { Button, BackTop, Table, Input, Icon, Upload } from 'antd';
 // import 'antd/dist/antd.css';
 import 'antd/lib/button/style/css';
 import 'antd/lib/table/style/css';
@@ -9,7 +9,9 @@ import 'antd/lib/back-top/style/css';
 import logo from './logo.svg';
 import './App.css';
 
-import {bfs} from './finder.js';
+import { bfs } from './finder.js';
+
+const dialog = window.electron.remote.dialog
 
 const columns = [{
   title: 'Name',
@@ -35,6 +37,9 @@ class App extends Component {
   componentDidMount() {
     // console.log("--------fs", window.fs)
   }
+  handleFolderSelector() {
+    dialog.showOpenDialog({properties: ['openDirectory', 'multiSelections']})
+  }
   handleMouseDown() {
     this.setState({
       open: !this.state.open,
@@ -54,6 +59,7 @@ class App extends Component {
           <h2>Welcome to LocalReps</h2>
           <Button className="App-logo" type="primary" shape="circle" icon="setting" size="large" />
         </div>
+          <Input class="" onClick={(e)=> this.handleFolderSelector(e)} placeholder="File"  addonAfter={<Icon type="setting" />}type="text" id="uploadFile" />
         <div className="App-intro">
         <Motion style={{x: spring(this.state.open ? 200 : 0)}}>
           {({x}) =>
@@ -77,7 +83,6 @@ class App extends Component {
           showHeader={true}
           pagination={{ pageSize: 100 }}
         />  
-        <Button type="primary">Button</Button>
         <BackTop className="App-backTop" visibilityHeight={100} />
       </div>
     );
