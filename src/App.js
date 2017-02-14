@@ -13,6 +13,8 @@ import { bfs } from './finder.js';
 
 const dialog = window.electron.remote.dialog
 
+const exec = window.child_process.exec;
+
 const columns = [{
   title: 'Name',
   dataIndex: 'name',
@@ -51,6 +53,23 @@ class App extends Component {
     this.handleMouseDown();
   }
 
+  handleRowClick(record,index) {
+    // e.preventDefault();
+    console.log(record.path)
+    
+    let cmd = "cd " + record.path + "&& npm start;" 
+  
+      exec(cmd, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`exec error: ${error}`);
+          return;
+        }
+        console.log(`stdout: ${stdout}`);
+        console.log(`stderr: ${stderr}`);
+      });
+    
+  }
+
   render() {
     return (
       <div className="App App-background">
@@ -83,7 +102,8 @@ class App extends Component {
           /*showHeader={true}*/
           pagination={{ pageSize: 100 }}
           className="App-table"
-          locale={{emptyText: ''}}
+          locale={{ emptyText: '' }}
+          onRowClick={(r,i) => this.handleRowClick(r,i)}
         />  
         <BackTop className="App-backTop" visibilityHeight={100} />
       </div>
