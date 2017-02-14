@@ -8,8 +8,9 @@
 }
 
 .App-background {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAAFACAYAAAA7/HcbAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsSAAALEgHS3X78AAAEUElEQVR42u3bMWoUYBRG0YwE0b2kDqS1yBayoVRWWc+sI3sRbGIxBkyQgKDcz8w5zYA8ZIrLI/7PHB6OT08Xvzg+XsBfd3v1+z//UH8xztvh5v7lBnzt88fT57fvb/9F5sz9ydzd9enTBiQlQFICJHVZfwHO0/Nriw1ISoCkBEjq8OXr2++A8C98+vmvDxuQ1OXqS7m59z1nAzJBgKQESEqApARISoCkBEjKJYSEd0AmuISYS+ZsQCYIkJQASQmQlABJCZCUAEm5hJDwDsgElxBzyZwNyAQBkhIgKQGSEiApAZISICmXEBLeAZngEmIumbMBmSBAUgIkJUBSAiQlQFICJOUSQsI7IBNcQswlczYgEwRISoCkBEhKgKQESEqApFxCSHgHZIJLiLlkzgZkggBJCZCUAEkJkJQASQmQlEsICe+ATHAJMZfM2YBMECApAZISICkBkhIgKQGScgkh4R2QCS4h5pI5G5AJAiQlQFICJCVAUgIkJUBSLiEkvAMywSXEXDJnAzJBgKQESEqApARISoCkBEjKJYSEd0AmuISYS+ZsQCYIkJQASQmQlABJCZCUAEm5hJDwDsgElxBzyZwNyAQBkhIgKQGSEiApAZISICmXEBLeAZngEmIumbMBmSBAUgIkJUBSAiQlQFICJOUSQsI7IBNcQswlczYgEwRISoCkBEhKgKQESEqApFxCSHgHZIJLiLlkzgZkggBJCZCUAEkJkJQASQmQlEsICe+ATHAJMZfM2YBMECApAZK6rL8A5+n26vRpA5ISICkBkjo8HF9eQo6P9VfiPXr+me81G5DU4eb+7Vvw+ou6uf9z7u769GkDkhIgKQGScgkh8fzaYgOSEiApAZLyOyEk/I9oJvidEHPJnA3IBAGSEiApAZISICkBkhIgKZcQEt4BmeASYi6ZswGZIEBSAiQlQFICJCVAUgIk5RJCwjsgE1xCzCVzNiATBEhKgKQESEqApARISoCkXEJIeAdkgkuIuWTOBmSCAEkJkJQASQmQlABJCZCUSwgJ74BMcAkxl8zZgEwQICkBkhIgKQGSEiApAZJyCSHhHZAJLiHmkjkbkAkCJCVAUgIkJUBSAiQlQFIuISS8AzLBJcRcMmcDMkGApARISoCkBEhKgKQESMolhIR3QCa4hJhL5mxAJgiQlABJCZCUAEkJkJQASbmEkPAOyASXEHPJnA3IBAGSEiApAZISICkBkhIgKZcQEt4BmeASYi6ZswGZIEBSAiQlQFICJCVAUgIk5RJCwjsgE1xCzCVzNiATBEhKgKQESEqApARISoCkXEJIeAdkgkuIuWTOBmSCAEkJkJQASQmQlABJCZCUSwgJ74BMcAkxl8zZgEwQICkBkhIgKQGSEiApAZJyCSHhHZAJLiHmkjkbkAkCJCVAUgIkJUBSAiQlQFIuISS8AzLBJcRcMmcDMkGApARI6rL+Apyn26vTpw1ISoCkBEjqBy8haLl28NnKAAAAAElFTkSuQmCC);
-  background-size: 80px 160px;
+  background: #222;
+  background-size: 100% 100%;
+  height: 100%;
   }
 
 
@@ -29,6 +30,17 @@
   right:10px;
 }
 
+.App-table{
+  margin: 20px;
+  background: white;
+  border-radius: 4px;
+}
+
+/*hacking antd...*/
+.ant-table-tbody > tr:hover {
+    background: #2FD566;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -38,7 +50,7 @@
           border-radius: 4px;
           background-color: rgb(240, 240, 232);
           position: relative;
-          margin: 5px auto;
+          margin: 25px auto;
           width: 250px;
           height: 25px;
         }
@@ -47,5 +59,5 @@
           width: 50px;
           height: 25px;
           border-radius: 4px;
-          background-color: rgb(130, 181, 198);
+          background-color: #2FD566;
         }

@@ -59,29 +59,31 @@ class App extends Component {
           <h2>Welcome to LocalReps</h2>
           <Button className="App-logo" type="primary" shape="circle" icon="setting" size="large" />
         </div>
-          <Input class="" onClick={(e)=> this.handleFolderSelector(e)} placeholder="File"  addonAfter={<Icon type="setting" />}type="text" id="uploadFile" />
+        <Input class="" onClick={(e)=> this.handleFolderSelector(e)} placeholder="File"  addonAfter={<Icon type="setting" />}type="text" id="uploadFile" />
         <div className="App-intro">
-        <Motion style={{x: spring(this.state.open ? 200 : 0)}}>
-          {({x}) =>
-            // children is a callback which should accept the current value of
-            // `style`
-            <div className="demo0"
-                 onMouseDown={(e) => this.handleMouseDown(e)}
-                 onTouchStart={this.handleTouchStart.bind(this)}>
-              <div className="demo0-block" style={{
-                WebkitTransform: `translate3d(${x}px, 0, 0)`,
-                transform: `translate3d(${x}px, 0, 0)`,
-              }} />
-            </div>
-          }
-        </Motion>
+          <Motion style={{x: spring(this.state.open ? 200 : 0)}}>
+            {({x}) =>
+              // children is a callback which should accept the current value of
+              // `style`
+              <div className="demo0"
+                  onMouseDown={(e) => this.handleMouseDown(e)}
+                  onTouchStart={this.handleTouchStart.bind(this)}>
+                <div className="demo0-block" style={{
+                  WebkitTransform: `translate3d(${x}px, 0, 0)`,
+                  transform: `translate3d(${x}px, 0, 0)`,
+                }} />
+              </div>
+            }
+          </Motion>
         </div>
 
         <Table dataSource={this.state.repos}
           columns={columns}
           size={"medium"}
-          showHeader={true}
+          /*showHeader={true}*/
           pagination={{ pageSize: 100 }}
+          className="App-table"
+          locale={{emptyText: ''}}
         />  
         <BackTop className="App-backTop" visibilityHeight={100} />
       </div>
