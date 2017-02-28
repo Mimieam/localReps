@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Motion, spring} from 'react-motion';
 import { Button, BackTop, Table, Input, Icon, Upload } from 'antd';
+
 // import 'antd/dist/antd.css';
 import 'antd/lib/button/style/css';
 import 'antd/lib/table/style/css';
@@ -10,10 +11,13 @@ import logo from './logo.svg';
 import './App.css';
 
 import { bfs } from './finder.js';
+import store, { STORAGE_ID } from './storage.js'
+
 
 const dialog = window.electron.remote.dialog
 
 const exec = window.child_process.exec;
+const spawn = window.child_process.spawn;
 
 const columns = [{
   title: 'Name',
@@ -25,6 +29,25 @@ const columns = [{
   key: 'path',
 }];
 
+// TODO: finish this function for other platforms
+const getUserDirectory = () => {
+  const platform = window.process.platform
+  const userInfo = window.os.userInfo()
+  let path = ''
+  if (platform === 'darwin') {
+    path =  `${userInfo.homedir}`
+  } else if (platform === 'win32'){
+    path =  ``
+  }
+  else {
+    path =  ``
+  }
+  console.log(path, platform)
+  return path
+}
+
+
+
 
 class App extends Component {
     constructor(props) {
@@ -32,12 +55,14 @@ class App extends Component {
         this.state = {
             open: false,
             count: 1,
-            repos:[]
+            searchPath: getUserDirectory() + '/Desktop/',
+            repos: store.get(STORAGE_ID).repos
         };
+      
     }
-  
+
   componentDidMount() {
-    // console.log("--------fs", window.fs)
+    console.log(getUserDirectory())
   }
   handleFolderSelector() {
     dialog.showOpenDialog({properties: ['openDirectory', 'multiSelections']})
@@ -45,7 +70,7 @@ class App extends Component {
   handleMouseDown() {
     this.setState({
       open: !this.state.open,
-      repos:  bfs('/Users/Miezan/Desktop/')
+      repos:  bfs(this.state.searchPath)
     });
   }
   handleTouchStart(e) {
@@ -54,20 +79,37 @@ class App extends Component {
   }
 
   handleRowClick(record,index) {
-    // e.preventDefault();
-    console.log(record.path)
-    
-    let cmd = "cd " + record.path + "&& npm start;" 
-  
-      exec(cmd, (error, stdout, stderr) => {
-        if (error) {
-          console.error(`exec error: ${error}`);
-          return;
-        }
-        console.log(`stdout: ${stdout}`);
-        console.log(`stderr: ${stderr}`);
-      });
-    
+
+    let cmd = "cd " + record.path + " && npm start"
+    let parts = cmd.split(/\s+/g);
+    const childP = spawn(parts[0], parts.slice(1), {
+                        cwd:record.path,
+                        shell:true })
+
+    // const ls = spawn('ls', ['-lh', '/usr'], {cwd:record.path, shell:true});
+    childP.stdout.on('data', (data) => {
+      console.log(`stdout[${record.name}]: ${data}`);
+    });
+
+    childP.stderr.on('data', (data) => {
+      console.log(`stderr[${record.name}]: ${data}`);
+    });
+
+    childP.on('close', (code) => {
+      console.log(`child process [${record.name}] exited with code ${code}`);
+    });
+
+
+      // (error, stdout, stderr) => {
+      // exec(cmd.split(" "), (error, stdout, stderr) => {
+      //   if (error) {
+      //     console.error(`exec error: ${error}`);
+      //     return;
+      //   }
+      //   console.log(`stdout: ${stdout}`);
+      //   console.log(`stderr: ${stderr}`);
+      // });
+
   }
 
   render() {
@@ -78,7 +120,7 @@ class App extends Component {
           <h2>Welcome to LocalReps</h2>
           <Button className="App-logo" type="primary" shape="circle" icon="setting" size="large" />
         </div>
-        <Input class="" onClick={(e)=> this.handleFolderSelector(e)} placeholder="File"  addonAfter={<Icon type="setting" />}type="text" id="uploadFile" />
+        <Input className="" onClick={(e)=> this.handleFolderSelector(e)} placeholder="File"  addonAfter={<Icon type="setting" />}type="text" id="uploadFile" />
         <div className="App-intro">
           <Motion style={{x: spring(this.state.open ? 200 : 0)}}>
             {({x}) =>
@@ -104,7 +146,7 @@ class App extends Component {
           className="App-table"
           locale={{ emptyText: '' }}
           onRowClick={(r,i) => this.handleRowClick(r,i)}
-        />  
+        />
         <BackTop className="App-backTop" visibilityHeight={100} />
       </div>
     );

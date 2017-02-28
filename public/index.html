@@ -18,6 +18,8 @@
   <script>
       const remote = require('electron').remote;
       window.fs = require('fs')
+      window.os = require('os')
+      window.process = require('process')
       window.electron = require('electron')
       window.child_process = require('child_process')
     console.log(remote.app.getVersion());

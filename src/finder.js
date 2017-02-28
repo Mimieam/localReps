@@ -1,7 +1,9 @@
 // 'use strict'
 
 // import fs from 'fs'
+import store, { STORAGE_ID } from './storage.js'
 const fs = window.fs
+
 
 console.log(fs)
 
@@ -58,6 +60,7 @@ const _bfs = (searchPath) => {
      }
    })
   //  console.log(resultTable)
+   store.put({repos: resultTable})  // NOT WORKING YET... probably need to wait for bfs to finish  
    return resultTable
 }
 
