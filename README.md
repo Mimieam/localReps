@@ -10,7 +10,7 @@ production:
 > npm run build
 
 production - packaging:
-> node_modules/.bin/electron-packager . localReps --platform=darwin --arch=x64  --out=release-builds --overwrite  --ignore="\electron-wait-react.js"
+> node_modules/.bin/electron-packager . localReps --platform=darwin --arch=x64  --out=release-builds --overwrite  --ignore="\electron-wait-react.js" --icon=Icon.icns
 
 
 

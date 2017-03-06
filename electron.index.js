@@ -11,9 +11,12 @@ const path = require('path')
 // import menubar from 'menubar'
 // import url from 'url'
 // import path from 'path'
+const options = {
 
+}
 let mb = menubar({
   dir: './public',
+  icon:'./public/Group.png',
   // index
   preloadWindow: true,
 })
@@ -25,6 +28,7 @@ const startUrl = process.env.ELECTRON_START_URL || url.format({
     slashes: true
 });
 
+// mb.setOption('icon', './public/icon.png');
 mb.on('ready', () => {
   console.log('app is ready', mb)
   mb.window.loadURL(startUrl)
