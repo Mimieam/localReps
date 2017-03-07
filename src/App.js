@@ -56,7 +56,8 @@ class App extends Component {
             open: false,
             count: 1,
             searchPath: getUserDirectory() + '/Desktop/',
-            repos: store.get(STORAGE_ID).repos
+            repos: store.get(STORAGE_ID).repos,
+            inputButtonIcon: "setting"
         };
       
     }
@@ -64,12 +65,17 @@ class App extends Component {
   componentDidMount() {
     console.log(getUserDirectory())
   }
-  handleFolderSelector() {
-    dialog.showOpenDialog({properties: ['openDirectory', 'multiSelections']})
+  handleFolderSelector(e) {
+    const selected = dialog.showOpenDialog({ properties: ['openDirectory', 'multiSelections'] })
+    if (selected !== undefined && selected.length > 0) {
+      this.setState({ searchPath: selected[0] })
+    }
+    console.log(e.target)
   }
   handleMouseDown() {
     this.setState({
       open: !this.state.open,
+      inputButtonIcon: this.state.inputButtonIcon === "setting"? "loading": "setting" ,
       repos:  bfs(this.state.searchPath)
     });
   }
@@ -118,9 +124,11 @@ class App extends Component {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to LocalReps</h2>
-          <Button className="App-logo" type="primary" shape="circle" icon="setting" size="large" />
+          <Button className="App-logo" type="primary" shape="circle" icon={this.state.inputButtonIcon}  size="large" />
         </div>
-        <Input className="" onClick={(e)=> this.handleFolderSelector(e)} placeholder="File"  addonAfter={<Icon type="setting" />}type="text" id="uploadFile" />
+        {/*<Input className="App-input" onClick={(e)=> this.handleFolderSelector(e)} placeholder="File"  addonAfter={<Icon type={this.state.inputButtonIcon}  />}type="text" id="uploadFile" />*/}
+        <Input className="App-input" placeholder="Select a folder" type="text" id="uploadFile" value={this.state.searchPath} />
+        <Button className="App-button" type="primary" icon={this.state.inputButtonIcon}  size="default"  onClick={(e)=> this.handleFolderSelector(e)} />
         <div className="App-intro">
           <Motion style={{x: spring(this.state.open ? 200 : 0)}}>
             {({x}) =>

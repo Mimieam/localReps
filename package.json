@@ -5,12 +5,15 @@
   "main": "./electron.index.js",
   "homepage": "./",
   "node": {
-  "fs": "empty"
-},
+    "fs": "empty"
+  },
   "devDependencies": {
     "electron": "^1.4.15",
     "electron-packager": "^8.5.1",
     "foreman": "^2.0.0",
+    "less": "^2.7.2",
+    "less-watch-compiler": "^1.4.2",
+    "npm-run-all": "^4.0.2",
     "react-scripts": "0.8.5"
   },
   "dependencies": {
@@ -21,12 +24,18 @@
     "react-motion": "^0.4.7"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build": "npm run build-css && react-scripts build",
+    "build-css": "lessc ./src/App.less ./src/App.css",
+    "watch-css": "less-watch-compiler ./src ./src --source-map",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "dev": "nf start",
     "electron-dev": "node_modules/.bin/electron electron.index.js",
     "electorn-build": "node_modules/.bin/electron-packager . localReps --platform=darwin --arch=x64  --out=release-builds --overwrite  --ignore=\"\\electron-wait-react.js\" --icon=./public/Icon.icns"
+  },
+  "theme": {
+    "primary-color": "#1DA57A"
   }
 }

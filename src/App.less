@@ -1,0 +1,76 @@
+@import "../node_modules/antd/dist/antd.less";   // import official less entry file
+@import "theme.less";   // override variables here
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-background {
+  background: #222;
+  background-size: 100% 100%;
+  height: 100%;
+  }
+
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+.App-input{
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 300px;
+}
+
+.App-backTop{
+  bottom:10px;
+  right:10px;
+}
+
+.App-table{
+  margin: 20px;
+  background: white;
+  border-radius: 4px; 
+}
+
+// .App-button {
+//   background: #2FD566;
+// }
+
+// /*hacking antd...*/
+// .ant-table-tbody > tr:hover {
+//     background: #2FD566;
+// }
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+          .demo0 {
+          border-radius: 4px;
+          background-color: rgb(240, 240, 232);
+          position: relative;
+          margin: 25px auto;
+          width: 250px;
+          height: 25px;
+        }
+        .demo0-block {
+          position: absolute;
+          width: 50px;
+          height: 25px;
+          border-radius: 4px;
+          background-color: #2FD566;
+        }
