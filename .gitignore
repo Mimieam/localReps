@@ -14,3 +14,7 @@ release-builds
 .DS_Store
 .env
 npm-debug.log
+
+# Ignore CSS & Map File
+*.css
+*.map
