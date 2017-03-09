@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Motion, spring} from 'react-motion';
-import { Button, BackTop, Table, Input, Icon, Upload } from 'antd';
+import { Button, BackTop, Table, Input } from 'antd';
 
 // import 'antd/dist/antd.css';
 import 'antd/lib/button/style/css';
@@ -11,6 +11,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import { bfs } from './finder.js';
+import { Complete } from './searchBar.js'
 import store, { STORAGE_ID } from './storage.js'
 
 
@@ -127,8 +128,9 @@ class App extends Component {
           <Button className="App-logo" type="primary" shape="circle" icon={this.state.inputButtonIcon}  size="large" />
         </div>
         {/*<Input className="App-input" onClick={(e)=> this.handleFolderSelector(e)} placeholder="File"  addonAfter={<Icon type={this.state.inputButtonIcon}  />}type="text" id="uploadFile" />*/}
+        <Complete/>
+        <Button className="App-button" type="primary" icon={this.state.inputButtonIcon} size="default" onClick={(e) => this.handleFolderSelector(e)} />
         <Input className="App-input" placeholder="Select a folder" type="text" id="uploadFile" value={this.state.searchPath} />
-        <Button className="App-button" type="primary" icon={this.state.inputButtonIcon}  size="default"  onClick={(e)=> this.handleFolderSelector(e)} />
         <div className="App-intro">
           <Motion style={{x: spring(this.state.open ? 200 : 0)}}>
             {({x}) =>
