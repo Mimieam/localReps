@@ -56,7 +56,7 @@ const _bfs = (searchPath) => {
      return {
        "name": _path.split("/").filter((x) => x !== "").slice(-1)[0].toUpperCase(),
        "path": _path,
-       "text": _path,
+       "text": _path.toLowerCase(),
      }
    })
   //  console.log(resultTable)

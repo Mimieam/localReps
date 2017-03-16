@@ -11,12 +11,18 @@ export class Complete extends React.Component {
   }
 
   handleChange = (value) => {
+    value = value.toLowerCase()
+    let data = this.props.dataSource.filter((x,i) => {
+         x.key = i
+        return x.text.toLowerCase().includes(value)
+      })
+      data = data.map((x) =>  x.text)
+    if (value === "") {
+      data = []
+    }
+
     this.setState({
-      dataSource: !value ? [] : [
-        value,
-        value + value,
-        value + value + value,
-      ],
+      dataSource: data
     });
   }
 
@@ -25,10 +31,11 @@ export class Complete extends React.Component {
     return (
       <AutoComplete
         dataSource={dataSource}
-        style={{ width: 200 }}
+        style= {this.props.style || {}}
         onSelect={onSelect}
         onChange={this.handleChange}
-        placeholder="input here"
+        filterOption={false}
+        placeholder="looking for a repo ?"
       />
     );
   }

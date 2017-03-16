@@ -21,7 +21,8 @@ let mb = menubar({
   height:400,
   preloadWindow: true,
   backgroundColor: '#222',
-  show: false
+  show: false,
+  alwaysOnTop: true, // for testing only
 })
 
 const startUrl = process.env.ELECTRON_START_URL || url.format({
@@ -32,5 +33,5 @@ const startUrl = process.env.ELECTRON_START_URL || url.format({
 
 mb.on('ready', () => {
   mb.window.loadURL(startUrl)
-  // mb.window.toggleDevTools()
+  mb.window.toggleDevTools()
 })
