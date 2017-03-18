@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {Motion, spring} from 'react-motion';
-import {Affix, Button, BackTop, Table, Input } from 'antd';
+// import {Motion, spring} from 'react-motion';
+import {Affix, Button, BackTop, Table } from 'antd';
 
 import 'antd/lib/affix/style/css';
 import 'antd/lib/button/style/css';
@@ -19,15 +19,25 @@ import BoxList from './Box.js'
 const exec = window.child_process.exec;
 const spawn = window.child_process.spawn;
 const dialog = window.electron.remote.dialog
+const platform = window.process.platform
 
 const columns = [
   { title: 'Name', dataIndex: 'name', key: 'name', },
   { title: 'Path', dataIndex: 'path', key: 'path', }
 ];
 
+const cmdRunner = (cmd, record) => {
+    // let cmd = "cd " + record.path + " && npm start"
+    let parts = cmd.split(/\s+/g);
+    const childP = spawn(parts[0], parts.slice(1), {
+        cwd:record.path,
+        shell: true
+    })
+  return childP
+}
+
 // TODO: finish this function for other platforms
 const getUserDirectory = () => {
-  const platform = window.process.platform
   const userInfo = window.os.userInfo()
   let path = ''
   if (platform === 'darwin') {
@@ -77,7 +87,12 @@ class App extends Component {
     e.preventDefault();
     this.handleMouseDown();
   }
-
+  // TODO: finish this function for other platforms
+  handleLocationOpener(record, index) {
+    let cmd = ''
+    if (platform === 'darwin') { cmd = `open ${record.path}` } 
+    const childP = cmdRunner(cmd,record)
+  }
   handleRowClick(record,index) {
 
     let cmd = "cd " + record.path + " && npm start"
@@ -122,10 +137,24 @@ class App extends Component {
             <Complete dataSource={this.state.repos} className="flex-item" style={{ width: 85 + '%', paddingTop: 13 + 'px', zIndex: 100 }} />
           </Affix>
         </div> 
+
+         {/*<Table dataSource={this.state.repos}
+          columns={columns}
+          size={"medium"}
+          showHeader={true}
+          pagination={{ pageSize: 100 }}
+          className="App-table"
+          locale={{ emptyText: '' }}
+          onRowClick={(r,i) => this.handleRowClick(r,i)}
+        />*/}
         <div className="flex-item center column" style={{ width: 100 + '%'}}>
 
           <div style={{ background: "#CCC", paddingTop: 30+'px'}}>
-              <BoxList dataSource={this.state.repos}></BoxList>
+            <BoxList
+              dataSource={this.state.repos}
+              onRowClick={(r, i) => this.handleRowClick(r, i)}
+              onRowClickOpenFinder={(r, i) => this.handleLocationOpener(r, i)}
+            ></BoxList>
           </div>  
         </div>
         <BackTop className="App-backTop" visibilityHeight={100} />
@@ -135,21 +164,21 @@ class App extends Component {
 }
 
 export default App;
-{/*<h2>Welcome to LocalReps</h2>*/ }
-            {/*<img src={logo} className="App-logo" alt="logo" />*/}
-          {/*<Button className="App-logo" type="primary" shape="circle" icon={this.state.inputButtonIcon}  size="large" />*/}
+// {/*<h2>Welcome to LocalReps</h2>*/ }
+//             {/*<img src={logo} className="App-logo" alt="logo" />*/}
+//           {/*<Button className="App-logo" type="primary" shape="circle" icon={this.state.inputButtonIcon}  size="large" />*/}
           
-        {/*<Input className="App-input" onClick={(e)=> this.handleFolderSelector(e)} placeholder="File"  addonAfter={<Icon type={this.state.inputButtonIcon}  />}type="text" id="uploadFile" />*/}
-          {/*<span className='flex-item'
-            style={{'color': '#6E6E6E',  fontSize: 10+'px' }}>
-            Repos relative to: {this.state.searchPath}
-          </span>*/}
-        {/*<Table dataSource={this.state.repos}
-          columns={columns}
-          size={"medium"}
-          showHeader={true}
-          pagination={{ pageSize: 100 }}
-          className="App-table"
-          locale={{ emptyText: '' }}
-          onRowClick={(r,i) => this.handleRowClick(r,i)}
-        />*/}
+//         {/*<Input className="App-input" onClick={(e)=> this.handleFolderSelector(e)} placeholder="File"  addonAfter={<Icon type={this.state.inputButtonIcon}  />}type="text" id="uploadFile" />*/}
+//           {/*<span className='flex-item'
+//             style={{'color': '#6E6E6E',  fontSize: 10+'px' }}>
+//             Repos relative to: {this.state.searchPath}
+//           </span>*/}
+//         {/*<Table dataSource={this.state.repos}
+//           columns={columns}
+//           size={"medium"}
+//           showHeader={true}
+//           pagination={{ pageSize: 100 }}
+//           className="App-table"
+//           locale={{ emptyText: '' }}
+//           onRowClick={(r,i) => this.handleRowClick(r,i)}
+//         />*/}

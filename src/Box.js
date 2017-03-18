@@ -33,7 +33,10 @@ class Box extends Component {
            margin:1+'px',
           display: 'inline-block',
         }}>{source.path}</div>
-        <Button type='dashed' type="primary" className='flex-item right'>Open </Button>
+        <div className='flex-item space-between right'>
+          <Button type="primary" className='flex-item' onClick={this.props.locationClickHandler.bind(this, this.props.data, this.props.key)}> Show in Finder </Button>
+          <Button type="primary" className='flex-item' onClick={this.props.clickHandler.bind(this, this.props.data, this.props.key)}> Open </Button>
+        </div>
         <br/>
 
       </div>
@@ -50,9 +53,19 @@ class BoxList extends Component {
   }
   render() {
     let source = this.props.dataSource || []
-    source = source.map((x, i) => <Box data={x} key={i} />)
+    let onClickHandler = this.props.onRowClick
+    let locationClickHandler = this.props.onRowClickOpenFinder
+    source = source.map((x, i) => {
+      return <Box
+        data={x}
+        key={i}
+        clickHandler={onClickHandler.bind(this)}
+        locationClickHandler={locationClickHandler.bind(this)}
+      />
+    })
+    
     return (
-      <div style={{ background: "#CCC", margin: 20+'px'}}>
+      <div style={{ background: "#CCCCCC", margin: 20+'px'}} >
        {source}
       </div>
     );
