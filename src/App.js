@@ -66,7 +66,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log(getUserDirectory())
+    // console.log(getUserDirectory())
   }
   handleFolderSelector(e) {
     const selected = dialog.showOpenDialog({ properties: ['openDirectory', 'multiSelections'] })
@@ -76,11 +76,11 @@ class App extends Component {
       console.log(e.target) 
     }
   }
-  handleMouseDown() {
+  async handleMouseDown() {
     this.setState({
       open: !this.state.open,
       inputButtonIcon: this.state.inputButtonIcon === "setting"? "loading": "setting" ,
-      repos:  bfs(this.state.searchPath)
+      repos:  await bfs(this.state.searchPath)
     });
   }
   handleTouchStart(e) {
@@ -138,15 +138,6 @@ class App extends Component {
           </Affix>
         </div> 
 
-         {/*<Table dataSource={this.state.repos}
-          columns={columns}
-          size={"medium"}
-          showHeader={true}
-          pagination={{ pageSize: 100 }}
-          className="App-table"
-          locale={{ emptyText: '' }}
-          onRowClick={(r,i) => this.handleRowClick(r,i)}
-        />*/}
         <div className="flex-item center column" style={{ width: 100 + '%'}}>
 
           <div style={{ background: "#CCC", paddingTop: 30+'px'}}>
@@ -164,21 +155,3 @@ class App extends Component {
 }
 
 export default App;
-// {/*<h2>Welcome to LocalReps</h2>*/ }
-//             {/*<img src={logo} className="App-logo" alt="logo" />*/}
-//           {/*<Button className="App-logo" type="primary" shape="circle" icon={this.state.inputButtonIcon}  size="large" />*/}
-          
-//         {/*<Input className="App-input" onClick={(e)=> this.handleFolderSelector(e)} placeholder="File"  addonAfter={<Icon type={this.state.inputButtonIcon}  />}type="text" id="uploadFile" />*/}
-//           {/*<span className='flex-item'
-//             style={{'color': '#6E6E6E',  fontSize: 10+'px' }}>
-//             Repos relative to: {this.state.searchPath}
-//           </span>*/}
-//         {/*<Table dataSource={this.state.repos}
-//           columns={columns}
-//           size={"medium"}
-//           showHeader={true}
-//           pagination={{ pageSize: 100 }}
-//           className="App-table"
-//           locale={{ emptyText: '' }}
-//           onRowClick={(r,i) => this.handleRowClick(r,i)}
-//         />*/}
