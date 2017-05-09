@@ -1,6 +1,6 @@
 import React from 'react';
 import PubSub from 'pubsub-js';
-import { AutoComplete } from 'antd';
+import { AutoComplete, Input } from 'antd';
 
 function onSelect(value) {
   console.log('onSelect', value);
@@ -12,8 +12,8 @@ export class Complete extends React.Component {
     dataSource: [],
   }
 
-  handleChange = (value) => {
-    value = value.toLowerCase()
+  handleChange = (event) => {
+    let value = event.target.value.toLowerCase()
     let dataObj = this.props.dataSource.filter((x,i) => {
          x.key = i
         return x.text.toLowerCase().includes(value)
@@ -32,14 +32,16 @@ export class Complete extends React.Component {
   render() {
     const { dataSource } = this.state;
     return (
-      <AutoComplete
+      <Input type="text" onChange={this.handleChange}  style={this.props.style || {}} placeholder="looking for a repo ?" />
+      /*<AutoComplete
         dataSource={dataSource}
         style= {this.props.style || {}}
         onSelect={onSelect}
         onChange={this.handleChange}
         filterOption={false}
+        labelInValue = {false}
         placeholder="looking for a repo ?"
-      />
+      />*/
     );
   }
 }

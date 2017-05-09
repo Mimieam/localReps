@@ -73,7 +73,8 @@ class BoxList extends Component {
   }
   
   render() {
-    let source = this.state.filtered || this.props.dataSource || []
+    // TODO: finish the filtering function - there is a conflict with the autocomplete component
+    let source = this.state.filtered == [] ? this.props.dataSource : this.state.filtered
     // let source = filteredSource || this.props.dataSource
     console.log(source)
     let onClickHandler = this.props.onRowClick
