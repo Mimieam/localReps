@@ -1,7 +1,7 @@
 // 'use strict'
 
 // import fs from 'fs'
-// import store, { STORAGE_ID } from './storage.js'
+import store, { STORAGE_ID } from './storage.js'
 // const fs = window.fs
 
 
@@ -75,7 +75,11 @@
 
 
 'use strict'
-const fs = require('fs')
+// import fs from 'fs'
+const fs = window.fs
+// const fs = require('fs')
+// const fs = require('fs')
+console.log('fs -finder.js', fs)
 
 // folder excluded from any recursive search **shrug**
 const EXCLUDES = [
@@ -128,17 +132,30 @@ const _bfs = (searchPath, arrayOfPromises) => {
  const bfs = async (searchPath) => {
     // search the provided path for a .git folder
   let proms = []
+  let resultTable  = [] 
   const p = await _bfs(searchPath, proms).then(async (data)=> {
     await Promise.all(proms).then((data)=>{
-      console.log(res)
-      return res
+      
+    console.log("bfs- res", res)  // VOODOO magic -> _bfs push things to the global res array - don't remember why i did it this way but most likely because of some promise issue and async/wait messing around
+      
+    resultTable = res.map((_path) => { 
+        return {
+          "name": _path.split("/").filter((x) => x !== "").slice(-1)[0].toUpperCase(),
+          "path": _path,
+          "text": _path.toLowerCase(),
+          }
+    })
+     console.log(resultTable)
+    store.put({repos: resultTable})  // NOT WORKING YET... probably need to wait for bfs to finish  
+    return resultTable
+
     }).catch((e)=>{console.log(e.message)})
   }).catch((e)=>{console.log(e.message)})
 
    console.log("[------------------------------------------\
 ---------------------------------------------\
 ----------------------------->>>>" )
-   return res
+   return resultTable
 }
 
 // patiently awaiting Node support for es6 modules...

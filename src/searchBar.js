@@ -12,27 +12,27 @@ export class Complete extends React.Component {
     dataSource: [],
   }
 
-  handleChange = (event) => {
-    let value = event.target.value.toLowerCase()
-    let dataObj = this.props.dataSource.filter((x,i) => {
-         x.key = i
-        return x.text.toLowerCase().includes(value)
-      })
-    let data = dataObj.map((x) =>  x.text)
-    if (value === "") {
-      data = []
-    }
-
-    this.setState({
-      dataSource: data
-    });
-    PubSub.publish('ReposList', dataObj)
+handleChange = (event) => {
+  let value = event.target.value.toLowerCase()
+  let dataObj = this.props.dataSource.filter((x, i) => {
+      // console.log("dataOBJ", this.props.dataSource)
+      x.key = i
+      return x.text.toLowerCase().includes(value)
+    })
+  let data = dataObj.map((x) => x.text)
+  if (value === "") {
+    data = []
   }
 
+  this.setState({dataSource: data});
+  PubSub.publish('ReposList', dataObj)
+  PubSub.publish('SeachBarValue', value)
+}
+
   render() {
-    const { dataSource } = this.state;
+    // const { dataSource } = this.state;
     return (
-      <Input type="text" onChange={this.handleChange}  style={this.props.style || {}} placeholder="looking for a repo ?" />
+      <Input type="text" onChange={this.handleChange.bind(this)}  style={this.props.style || {}} placeholder="looking for a repo ?" />
       /*<AutoComplete
         dataSource={dataSource}
         style= {this.props.style || {}}

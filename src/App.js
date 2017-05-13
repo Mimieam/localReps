@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import {Motion, spring} from 'react-motion';
-import {Affix, Button, BackTop, Table } from 'antd';
+import {Affix, Button, BackTop, Table, Badge } from 'antd';
 
 import 'antd/lib/affix/style/css';
 import 'antd/lib/button/style/css';
@@ -59,7 +59,7 @@ class App extends Component {
         open: false,
         count: 1,
         searchPath: getUserDirectory() + '/Desktop/',
-        repos: store.get(STORAGE_ID).repos,
+        repos: store.get(STORAGE_ID).repos || [],
         inputButtonIcon: "setting"
       };
     
@@ -77,11 +77,22 @@ class App extends Component {
     }
   }
   async handleMouseDown() {
-    this.setState({
-      open: !this.state.open,
-      inputButtonIcon: this.state.inputButtonIcon === "setting"? "loading": "setting" ,
-      repos:  await bfs(this.state.searchPath)
-    });
+    new Promise(async (resolve, reject) => {
+      this.setState({ inputButtonIcon: "loading" })
+      resolve (await bfs(this.state.searchPath))
+    }).then((data) => { 
+        this.setState({
+          open: !this.state.open,
+          inputButtonIcon: this.state.inputButtonIcon === "setting"? "loading": "setting" ,
+          repos:  data
+        });
+      console.log("data received:", data)
+    })
+    // this.setState({
+    //   open: !this.state.open,
+    //   inputButtonIcon: this.state.inputButtonIcon === "setting"? "loading": "setting" ,
+    //   repos:  await bfs(this.state.searchPath)
+    // });
   }
   handleTouchStart(e) {
     e.preventDefault();
@@ -131,10 +142,11 @@ class App extends Component {
               icon={this.state.inputButtonIcon}
               size="default" onClick={(e) => this.handleFolderSelector(e)} > Load Reps
             </Button>
+            <Badge count={this.state.repos.length} style={{ margin: 5+'px'}} />
           </div>
 
           <Affix offsetTop={5}>
-            <Complete dataSource={this.state.repos} className="flex-item" style={{ width: 85 + '%', paddingTop: 13 + 'px', zIndex: 100 }} />
+            <Complete dataSource={this.state.repos} className="flex-item" style={{ width: 85 + '%', paddingTop: 5 + 'px', marginTop:10 +'px' , zIndex: 100 }} />
           </Affix>
         </div> 
 

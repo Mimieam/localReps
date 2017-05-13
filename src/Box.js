@@ -4,20 +4,20 @@ import { Button } from 'antd';
 
 console.log(PubSub)
 
-let filteredSource = []
+// let filteredSource = []
 var mySubscriber = function( msg, data ){
   console.log("PubSub: ", msg, data);
-  filteredSource = data  
+  // filteredSource = data  
   return data
   
 };
 
-const ACTIONS = {
-  "edit":'',
-  "execute": '',
-  "open terminal": '',
-  "open location": '',
-}
+// const ACTIONS = {
+//   "edit":'',
+//   "execute": '',
+//   "open terminal": '',
+//   "open location": '',
+// }
 
 class Box extends Component {
   render() {
@@ -56,9 +56,11 @@ class BoxList extends Component {
     super(props);
     this.state = {
       dataSource: [],
-      filtered:[]
+      filtered: [],
+      searchBarValue: ''
     }
     PubSub.subscribe('ReposList', this.handleFiltering.bind(this))
+    PubSub.subscribe('SeachBarValue', this.handleSearchBarInputs.bind(this))
     
   }
   handleFiltering(msg , data) {
@@ -67,14 +69,13 @@ class BoxList extends Component {
         filtered: filteredData
       })
   }
-  filter(str='') {
-    var arr = this.props.dataSource 
-    return arr.filter( x => x.path.includes(str))
+  handleSearchBarInputs(msg, data) {
+    mySubscriber( msg, data )
+    this.setState({searchBarValue: data})
   }
-  
   render() {
     // TODO: finish the filtering function - there is a conflict with the autocomplete component
-    let source = this.state.filtered == [] ? this.props.dataSource : this.state.filtered
+    let source = (this.state.searchBarValue == '' )? this.props.dataSource : this.state.filtered
     // let source = filteredSource || this.props.dataSource
     console.log(source)
     let onClickHandler = this.props.onRowClick

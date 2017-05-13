@@ -1,5 +1,5 @@
 
-# LocalReps
+# LocalReps  ( Mac )
 
 LocalReps fin
 This app search for all git repos in a search path and make bring them all together to be easily run.
@@ -14,6 +14,8 @@ production:
 production - packaging:
 > node_modules/.bin/electron-packager . localReps --platform=darwin --arch=x64  --out=release-builds --overwrite  --ignore="\electron-wait-react.js" --icon=Icon.icns
 
+
+![Alt text](/progressPic.png?raw=true "May 2017")
 
 Made with:
 
