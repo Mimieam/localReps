@@ -1,17 +1,19 @@
 
 # LocalReps  ( Mac )
 
-LocalReps fin
-This app search for all git repos in a search path and make bring them all together to be easily run.
+LocalReps looks for all git repos in a search path and brings them all together in one location to be easily run.
+
+- reveal=> open in terminal
+- open => open in your default filesystem 
 
 
-dev mode:
+**dev mode**:
 > npm install && npm run dev
 
-production:
+**production**:
 > npm run build
 
-production - packaging:
+**production - packaging**:
 > node_modules/.bin/electron-packager . localReps --platform=darwin --arch=x64  --out=release-builds --overwrite  --ignore="\electron-wait-react.js" --icon=Icon.icns
 
 
@@ -31,5 +33,5 @@ React + Electron + MotionUI + less + muscle-css + antd +  Glue... lots of Glue X
  - localstorage added - update only on request.
  - input
     * margin
-    * add selectect from dropdown 
+    * add selected from dropdown 
     
